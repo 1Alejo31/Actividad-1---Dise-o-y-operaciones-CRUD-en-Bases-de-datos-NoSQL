@@ -1,6 +1,60 @@
 use('Liga_Internacional')
 
 
+//Comando de la tercera actividad:
+db = (new Mongo("localhost:20006")).getDB("Biblioteca") 
+for (i= 0; i < 800000; i++) {
+    db.Autores.insert({author : "author" +i, post_title : "Blog Post by Author "
+    +i, date: new Date() });
+}
+
+db.Editoriales.insertMany([
+    {id_editorial:9, nombre: 'McGraw Hill', pais: 'USA', grupo: 'McCallun y Cia.'},
+    {id_editorial:10, nombre:'Addison Wesley', pais: 'USA', grupo: 'McCallun yCia.'},
+    {id_editorial:11,nombre:'La oveja negra', pais: 'Colombia', grupo: 'Mejía y Cia'},
+    {id_editorial:12, nombre: 'Aguilar', pais: 'México', grupo: 'Aguilar y Cia'},
+    {id_editorial:13, nombre: 'Alfaguara', pais: 'Colombia', grupo: 'GrupoEmpresarial'}
+]);
+
+
+db.MisLibros.insertMany([
+    {id_libro:1, nombre:'El Aleph', autor: 'Jorge Luis Borges', editoriales: ['Planeta', 'Siglo XXI']},
+    {id_libro:2, nombre:'El Quijote de la Mancha', autor: 'Miguel de Cervantes Saavedra', editoriales: ['Planeta']},
+    {id_libro:3, nombre: 'Cien años de soledad', autor: 'Gabriel García Márquez',editoriales: ['Oveja Negra']},
+    {id_libro:4, nombre: 'Crimen y castigo', autor: 'Fiodor Dostoyeski', editoriales: ['Addison Wesley ']}
+]);
+
+db.Autores.count()
+db.Editoriales.count()
+db.MisLibros.count()
+
+shard1 = new Mongo("localhost:20000")
+shard1DB = shard1.getDB("Biblioteca")
+shard1DB.Autores.count()
+
+shard2= new Mongo("localhost:20001")
+shard2DB = shard2.getDB("Biblioteca")
+shard2DB.Autores.count()
+
+shard3= new Mongo("localhost:20002")
+shard3DB = shard3.getDB("Biblioteca")
+shard3DB.Autores.count()
+
+shard1 = new Mongo("localhost:20006")
+sh.status()
+
+sh.enableSharding("Biblioteca")
+db.Autores.ensureIndex({author : 1})
+
+sh.shardCollection("Biblioteca.Autores", {author: 1})
+
+
+
+
+
+
+
+
 //db.Cinema.insertMany([[{"Cine Colombia": "Tunal", "Peliculas": [{"Pelicula": "Jhon wik 4"}, {"Pelicula": "Screan 6"}, {"Pelicula": "65"}]}]])
 
 
@@ -8,7 +62,7 @@ use('Liga_Internacional')
 //db.Arbitros.insertMany([{"Nombre": "Romualdo Arppi Filho", "Pais": "Brasil"}, {"Nombre": "Michel Vautrot", "Pais": "Francia"}])
 
 //db.ResultadoEncuentro.insertMany([{"Ganador": [ObjectId("6417c8d4b506a4ac78a7698a")], "JugadorElegido": [ObjectId("6417d225b9de2b6d59dd21f6")]}])
-db.Partidos.insertMany([{"Fecha": "19/03/2023", "Hora": "10:00 Pm", "Estadio": "El campin", "Selecciones": [ObjectId("6417c8d4b506a4ac78a7698a"), ObjectId("6417c8d4b506a4ac78a76990")], "Arbitro": [ObjectId("6417d5140d0510b7ae320f19")]}])
+//db.Partidos.insertMany([{"Fecha": "19/03/2023", "Hora": "10:00 Pm", "Estadio": "El campin", "Selecciones": [ObjectId("6417c8d4b506a4ac78a7698a"), ObjectId("6417c8d4b506a4ac78a76990")], "Arbitro": [ObjectId("6417d5140d0510b7ae320f19")]}])
 
 /*
 db.Jugadores.insertMany([
