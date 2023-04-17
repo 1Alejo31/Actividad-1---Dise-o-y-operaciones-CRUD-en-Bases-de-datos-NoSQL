@@ -1,6 +1,28 @@
 use('Liga_Internacional')
 
 
+//Comandos de la cuarta actividad 
+
+md C:\data\repl\n1
+md C:\data\repl\n2
+md C:\data\repl\n3
+md C:\data\repl\n4
+md C:\data\repl\n5
+md C:\data\repl\n6
+
+md C:\data\config\n1
+md C:\data\config\n2
+md C:\data\config\n3
+
+mongod --port 27017 --dbpath \data\repl\n1 --replSet rs0
+mongod --port 27018 --dbpath \data\repl\n2 --replSet rs0
+mongod --port 27019 --dbpath \data\repl\n3 --replSet rs0
+
+strat mongo --port 27022 --dbpath \data\config\n1
+strat mongo --port 27023 --dbpath \data\config\n2
+strat mongo --port 27024 --dbpath \data\config\n3
+
+
 //Comando de la tercera actividad:
 db = (new Mongo("localhost:20006")).getDB("Biblioteca") 
 for (i= 0; i < 800000; i++) {
@@ -213,3 +235,5 @@ db.Jugadores.insertMany([
 {"Nombre": "Jhon Córdoba," "Edad": "29 años", "Posicion": "Delantero", "Equipo": [ObjectId("6417c8d4b506a4ac78a7698a")]},
 {"Nombre": "Rafael Santos Borré," "Edad": "27 años", "Posicion": "Delantero", "Equipo": [ObjectId("6417c8d4b506a4ac78a7698a")]}
 */
+
+
